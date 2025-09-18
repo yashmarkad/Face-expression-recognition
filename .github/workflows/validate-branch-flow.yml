@@ -27,4 +27,10 @@ jobs:
             exit 1
           fi
 
+          # Explicit block: poc → production (never allowed)
+          if [[ "${{ github.base_ref }}" == "production" && "${{ github.head_ref }}" == "poc" ]]; then
+            echo "❌ ERROR: Direct 'poc → production' merge is forbidden."
+            exit 1
+          fi
+
           echo "✅ Branch flow is valid."
